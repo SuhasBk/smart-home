@@ -1,0 +1,14 @@
+# Core Logic & Configuration
+requests
+python-dotenv
+
+# Voice Processing (Microphone & STT)
+SpeechRecognition
+pyaudio
+
+# Wake Word Engine
+pvporcupine
+pvrecorder
+
+# AI / LLM Brain
+google-generativeai
