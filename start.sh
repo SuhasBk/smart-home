@@ -11,14 +11,19 @@ echo "=================================="
 # --- STEP 1: LOAD .ENV VARIABLES ---
 if [ -f "$ENV_FILE" ]; then
     echo "📜 Loading configuration from .env..."
-    export $(grep -v '^#' "$ENV_FILE" | xargs)
+    
+    set -a
+    source "$ENV_FILE"
+    set +a
 else
     echo "❌ Error: .env file not found at $ENV_FILE"
     exit 1
 fi
 
+# Verify required variables
 if [ -z "$VM_NAME" ] || [ -z "$SCRIPT_NAME" ]; then
     echo "❌ Error: VM_NAME or SCRIPT_NAME missing in .env file."
+    echo "   (Check if your .env file is formatted correctly)"
     exit 1
 fi
 
