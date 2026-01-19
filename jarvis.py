@@ -156,14 +156,14 @@ def call_ha_service(domain, service, entity_id, extra_data=None):
 def listen_for_command(mic_index):
     """Listens for speech with strict timeouts"""
     r = sr.Recognizer()
-    r.energy_threshold = 300       # Static threshold for speed
+    r.energy_threshold = 500       # Static threshold for speed
     r.dynamic_energy_threshold = False
     
     try:
         with sr.Microphone(device_index=mic_index) as source:
+            os.system('afplay /System/Library/Sounds/Tink.aiff')
             print("   (Listening...)")
-            # Timeout: Wait 3s for start of speech. Phrase Limit: Cut off after 5s.
-            audio = r.listen(source, timeout=1, phrase_time_limit=5)
+            audio = r.listen(source, timeout=3, phrase_time_limit=10)
             print("   Processing...")
             return r.recognize_google(audio).lower()
     except Exception:
@@ -212,10 +212,13 @@ if __name__ == "__main__":
                 # Double-check health (in case it died since start)
                 if check_ha_health():
                     time.sleep(0.5) # Wait for mic to unlock
-                    os.system('afplay /System/Library/Sounds/Tink.aiff')
                     
                     # Listen for command
                     command = listen_for_command(SR_IDX)
+
+                    if command in ["stop", "exit", "shut down"]:
+                        speak("Goodbye.")
+                        break
                     
                     if command:
                         print(f"   🗣️ You said: {command}")
@@ -252,10 +255,6 @@ if __name__ == "__main__":
                                 # CASE B: General Chat
                                 elif action_type == "chat":
                                     speak(action.get("response"))
-                                    
-                        elif command in ["stop", "exit", "shut down"]:
-                            speak("Goodbye.")
-                            break
                     else:
                         print("   (No speech detected)")
                 else:
