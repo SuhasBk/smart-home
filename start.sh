@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# How this script helps:
+
+# 1. Read required values from .env: $VM_NAME, $SCRIPT_NAME
+# 2. Start VirtualBox application if not running
+# 3. Start the VM_NAME if not running (idempotent)
+# 4. Wait for 2 minutes for HAOS VM to boot up
+# 6. Run python script - $SCRIPT_NAME
+# 7. Run cleanup (stop VM and exit VirtualBox app) in these scenarios:
+#     a. Python script exits normally.
+#     b. User triggers Ctrl + C
+
 # --- SETUP CONFIG ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENV_FILE="$SCRIPT_DIR/.env"

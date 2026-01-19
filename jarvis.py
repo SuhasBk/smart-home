@@ -133,7 +133,7 @@ def speak(text):
 def check_ha_health():
     """Pings Home Assistant to ensure it's reachable"""
     try:
-        requests.get(f"{HA_URL}/api/", headers={"Authorization": f"Bearer {TOKEN}"}, timeout=2)
+        requests.get(f"{HA_URL}/api/", headers={"Authorization": f"Bearer {TOKEN}"}, timeout=60)
         return True
     except:
         return False
