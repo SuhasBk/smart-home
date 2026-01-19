@@ -6,6 +6,12 @@ A private, locally-hosted voice assistant that turns a MacBook Pro into a dedica
 
 ---
 
+## Demo Screenshot
+
+<img width="378" height="939" alt="Screenshot 2026-01-19 at 12 57 09" src="https://github.com/user-attachments/assets/be3f00ff-7d02-4d13-8e45-2b39f95a1fc2" />
+
+---
+
 ## ⚡️ Features
 * **Hybrid Voice Architecture:**
     * **Always-Listening (Local):** Uses Picovoice Porcupine to detect "Jarvis" instantly with zero latency and high privacy (no audio sent to cloud).
